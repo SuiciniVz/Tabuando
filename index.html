@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        * {
+        padding: 0px;
+        margin: 0px;
+    }
+    body {
+        background-image: url("https://i.pinimg.com/originals/fe/78/bb/fe78bbb25f35d56b502327fb6d43b309.png");
+        background-image: url("background.jpg");
+        background-repeat: space;
+        background-attachment: fixed;
+        background-size: cover;
+        background-color: #0e0d0d;
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+    #main {
+        position: absolute;
+        width: 300px;
+        height: 400px;
+        background-color: #00467F;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        border-radius: 10%;
+        animation-name: none;
+        animation-direction: reverse;
+        animation-duration: 0.5s;
+        animation-iteration-count: initial;
+        animation-timing-function: ease-out;
+    }
+    table {
+        margin: auto;
+    }
+    .possible-Answer {
+        background-color: #008CFF;
+        cursor: pointer;
+        text-align: center;
+        display: block;
+        width: 120px;
+        padding: 20px 50px;
+        border-radius: 24px;
+        border: 1px solid #fff;
+        margin: 10px;
+        font-size: 1.5em;
+    }
+    .possible-Answer:hover {
+        background-color: #26577F;
+    }
+    #Multi-Problem {
+        font-size: 2em;
+    }
+    h1 {
+        text-align: center;
+    }
+    @keyframes betweenResponsesCorrect {
+        0% {background-color: #00467F;}
+        100% {background-color: #00825a;}
+    }
+    @keyframes betweenResponsesWrong {
+        0% {background-color: #00467F;}
+        100% {background-color: #b44c43;}
+    }
+    </style>
+</head>
+<body>
+
+    <h1> < TABUANDO > </h1>
+    <div id=main>
+        
+        <div id="Multi-Problem"></div>
+        <div id="answer">
+            <table>
+                <tr>
+                    <td class="possible-Answer" correctAnswer=""></td>
+                    <td class="possible-Answer"></td>
+                    <td class="possible-Answer"></td>
+                    <td class="possible-Answer"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- <script src="calc.js"></script> -->
+    <script>
+        
+        const NUM_MIN = 2;
+        const NUM_MAX = 10; // NUM_MAX = NUM_MAX - 1
+
+        function start() {
+            screenTable = getNumbers_For_Multi_tables();
+            console.log("Function Numbers_For_Multi_Tables successful");
+
+            Draw_Multi_Problem(screenTable);
+
+            Draw_Multiplication_Tables()
+        }
+
+        function getNumbers_For_Multi_tables() {
+            num1 = Math.floor(Math.random() * (NUM_MAX - NUM_MIN) + NUM_MIN);
+            num2 = Math.floor(Math.random() * (NUM_MAX - NUM_MIN) + NUM_MIN);
+
+            return [num1, num2, num1*num2]
+        }
+
+        function Draw_Multi_Problem(multiTable) {
+            var table = document.getElementById("Multi-Problem");
+
+            table.innerHTML = `${multiTable[0]} x ${multiTable[1]}`;
+            console.log("Function Draw_Multi_Problem successful");
+        }
+
+        function setAnswer(id) {
+            userResponse = Number(document.getElementById(id).textContent)
+            console.log(userResponse)
+            check_Answer(userResponse, screenTable)
+        }
+
+        function check_Answer(userResponse, screenTable) {
+
+            divMain = document.getElementById("main")
+            divMain.style.animationName = "none";
+
+            if (userResponse == screenTable[2]) {
+                setTimeout(() => divMain.style.animationName = "betweenResponsesCorrect",5)
+                // alert("correct answer")
+                console.log("correct answer")
+            }
+            else {
+                setTimeout(() => divMain.style.animationName = "betweenResponsesWrong",5)
+                // alert("wrong answer")
+                console.log("wrong answer")
+            }
+            start();
+        }
+
+        function Draw_Multiplication_Tables() {
+            let answerTable = document.getElementsByClassName("possible-Answer");
+            let possibleAnswer =  [];
+            let correctAnswer = Math.floor(Math.random() * answerTable.length)
+
+            for (let i=0; i < answerTable.length; i++) {
+                possibleAnswer[i] = getNumbers_For_Multi_tables()[2]
+            }
+            possibleAnswer[correctAnswer] = screenTable[2];
+            
+            for (let i=0; i < answerTable.length; i++) {
+                if (possibleAnswer.indexOf(possibleAnswer[i]) != i)
+                    possibleAnswer[i] = getNumbers_For_Multi_tables()[2]
+
+                answerTable[i].setAttribute("id", `${i}`)
+                answerTable[i].innerHTML = `${possibleAnswer[i]}`
+            }
+        }
+
+        function addEventsInDrawMultiTables() {
+            var answerTable = document.getElementsByClassName("possible-Answer");
+            for (let i=0; i < answerTable.length; i++) {
+                answerTable[i].addEventListener("click", function () {
+                    setAnswer(this.id)
+                })
+            }
+            console.log("function addEventsInDrawMultiTables successful")
+        }
+
+        start()
+        addEventsInDrawMultiTables()
+
+    </script>
+</body>
+</html>

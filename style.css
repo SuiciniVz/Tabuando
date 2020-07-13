@@ -1,0 +1,64 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body {
+    background-image: url("https://i.pinimg.com/originals/fe/78/bb/fe78bbb25f35d56b502327fb6d43b309.png");
+    background-image: url("background.jpg");
+    background-repeat: space;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #0e0d0d;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+#main {
+    position: absolute;
+    width: 300px;
+    height: 400px;
+    background-color: #00467F;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 10%;
+    animation-name: none;
+    animation-direction: reverse;
+    animation-duration: 0.5s;
+    animation-iteration-count: initial;
+    animation-timing-function: ease-out;
+}
+table {
+    margin: auto;
+}
+.possible-Answer {
+    background-color: #008CFF;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    width: 120px;
+    padding: 20px 50px;
+    border-radius: 24px;
+    border: 1px solid #fff;
+    margin: 10px;
+    font-size: 1.5em;
+}
+.possible-Answer:hover {
+    background-color: #26577F;
+}
+#Multi-Problem {
+    font-size: 2em;
+}
+h1 {
+    text-align: center;
+}
+@keyframes betweenResponsesCorrect {
+    0% {background-color: #00467F;}
+    100% {background-color: #00825a;}
+}
+@keyframes betweenResponsesWrong {
+    0% {background-color: #00467F;}
+    100% {background-color: #b44c43;}
+}
